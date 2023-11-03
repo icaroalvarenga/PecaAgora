@@ -62,6 +62,8 @@ class MercadoLivreController extends Controller
 
         $searchModel = new MercadoLivreSearch();
         $curl = new curl\Curl();
+
+        //remove o '-' e coloca as letras maiusculas
         $meli_id_sanitized = strtoupper(str_replace( "-", "", $id));
         $resposta = BaseJson::decode($curl->get('https://api.mercadolibre.com/items?ids='.$meli_id_sanitized))[0];
             switch ($resposta['code']) {
@@ -76,9 +78,10 @@ class MercadoLivreController extends Controller
                 break;
                     
                 case 200:
-                    //success logic here
                     $categoria = $curl->get('https://api.mercadolibre.com/categories/'.$resposta['body']['category_id']);
                     $resposta['body']['category_id'] = BaseJson::decode($categoria)['name'];
+
+                    //verificar se o produto está disponivel (under_review)
                     if($resposta['body']['status'] == 'under_review'){
                         $resposta['body']['erro'] = 'Este produto está indisponível no momento.';
                         return $this->render('view', [
@@ -94,9 +97,7 @@ class MercadoLivreController extends Controller
                     break;
             
                 case 404:
-                    // dd($resposta['body']);
                     $resposta['body']['erro'] = 'Produto não encontrado.';
-                    // dd($resposta);
                     return $this->render('view', [
                         'model' =>$resposta['body'],
                         'searchModel' => $searchModel,

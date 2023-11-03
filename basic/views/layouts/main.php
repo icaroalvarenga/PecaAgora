@@ -33,9 +33,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php
     NavBar::begin([
         'brandLabel' => Html::img('@web/images/pecaagora_padrao.png', ['alt'=>'Peça Agora']),
-
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'brandUrl' => 'https://www.pecaagora.com',       
+        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top', 'target' => '_blank'],
+        'brandOptions' => [
+            'target'=>'_blank'
+        ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],

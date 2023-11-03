@@ -10,7 +10,7 @@ use app\models\Cargos;
 /** @var yii\widgets\ActiveForm $form */
 
 
-
+//Registrando o JS que para pegar cep e gerar endereco
 $this->registerJsFile(Yii::$app->request->baseUrl.'/cep.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
@@ -20,7 +20,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/cep.js',['depends' => [\yii\
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-
+    <!-- pega os cargos e gera um dropdown substituindo os ids pelo nome do cargo -->
     <?= $form->field($model, 'id_cargo')->dropDownList(ArrayHelper::map(Cargos::find()->orderBy('nome')->asArray()->all(), 'id', 'nome'),['prompt'=>'Selecione um cargo'])->label('Cargo') ?>
 
     <?= $form->field($model, 'cep')->textInput(['maxlength' => true,  'onblur' => 'pesquisacep();']) ?>

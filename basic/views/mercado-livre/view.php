@@ -20,11 +20,14 @@ $this->title = $model['id'];
 
     <div class="container">
         <div class="row m-5">
+            <!-- verifica se foi enviado algum erro pelo controller-->
             <?php if(!empty($model['erro'])): ?>
                 <div class="col m-5">
                     <h3><?= $model['erro'] ?></h3>
                 </div>
             <?php else: ?>
+
+            <!-- se nao houve erro mostra o produto-->
             <div class="col">
                 <?= Html::img($model['thumbnail'], [
                 'alt'=>'Peça Agora',
